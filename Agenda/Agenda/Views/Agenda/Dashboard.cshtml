@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "DashBoard";
+}
+
+<h2>DashBoard</h2>
+<div class="container">
+    <form>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div id="divContatosCadastrados"></div>
+            </div>
+            <div class="panel-body">
+
+            </div>
+        </div>
+    </form>
+
+    <div id="chartContainer" style="height: 500px; width: 100%;"></div>
+</div>
+<script type="text/javascript">
+    let contatosDaAgenda = null;
+
+    $(document).ready(function () {
+
+        renderContacts();
+
+        function getPersonByEstate(ddds) {
+            let qtdContatosByDDD = 0;
+            let contatosByDDD = null;
+
+            for(let ddd of ddds) {
+                contatosByDDD = contatosDaAgenda.filter(
+                    function (el) {
+                        console.log('telefone:' + el.Telefone + ' ddd' + el.Telefone.substring(1, 3))
+                        return (
+                            ddd === el.Telefone.substring(1, 3))                        
+                    });
+                qtdContatosByDDD += contatosByDDD.length;
+            }
+            return qtdContatosByDDD;
+        }
+        function loadGrahp(contatos) {
+
+            let options = {
+                title: {
+                    text: "Pessoas por Estado(Quantidade)"
+                },
+                subtitles: [{
+                    text: ""
+                }],
+                animationEnabled: true,
+                data: [{
+                    type: "pie",
+                    startAngle: 40,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}",
+                    dataPoints: [
+                        { y: getPersonByEstate(["11", "12", "13", "14", "15", "16", "17", "18", "19"]), label: "São Paulo" },
+                        { y: getPersonByEstate(["21", "22", "24"]), label: "Rio de Janeiro" },
+                        { y: getPersonByEstate(["27", "28"]), label: "Espírito Santo" },
+                        { y: getPersonByEstate(["31", "32", "33", "34", "35", "36", "37", "38"]), label: "Minas Gerais" },
+                        { y: getPersonByEstate(["41", "42", "43", "44", "45", "46"]), label: "Parana" },
+                        { y: getPersonByEstate(["47", "48", "49"]), label: "Santa Catarina" },
+                        { y: getPersonByEstate(["51", "53", "54", "55"]), label: "Rio Grande do Sul" },
+                        { y: getPersonByEstate(["61"]), label: "Distrito Federal/Goias" },
+                        { y: getPersonByEstate(["62"]), label: "Goias" },
+                        { y: getPersonByEstate(["63"]), label: "Tocantins" },
+                        { y: getPersonByEstate(["64"]), label: "Goias" },
+                        { y: getPersonByEstate(["65"]), label: "Mato Grosso" },
+                        { y: getPersonByEstate(["66"]), label: "Mato Grosso" },
+                        { y: getPersonByEstate(["67"]), label: "Mato Grosso do Sul" },
+                        { y: getPersonByEstate(["68"]), label: "Acre" },
+                        { y: getPersonByEstate(["69"]), label: "Rondônia" },
+                        { y: getPersonByEstate(["71", "73", "74", "75", "77"]), label: "Bahia" },
+                        { y: getPersonByEstate(["79"]), label: "Sergipe" },
+                        { y: getPersonByEstate(["81"]), label: "Pernambuco" },
+                        { y: getPersonByEstate(["82"]), label: "Alagoas" },
+                        { y: getPersonByEstate(["83"]), label: "Paraíba" },
+                        { y: getPersonByEstate(["84"]), label: "Rio Grande do Norte" },
+                        { y: getPersonByEstate(["85"]), label: "Ceara" },
+                        { y: getPersonByEstate(["86"]), label: "Piauí" },
+                        { y: getPersonByEstate(["87"]), label: "Pernambuco" },
+                        { y: getPersonByEstate(["88"]), label: "Ceara" },
+                        { y: getPersonByEstate(["89"]), label: "Piauí" },
+                        { y: getPersonByEstate(["91"]), label: "Para" },
+                        { y: getPersonByEstate(["92"]), label: "Amazonas" },
+                        { y: getPersonByEstate(["93"]), label: "Para" },
+                        { y: getPersonByEstate(["94"]), label: "Para" },
+                        { y: getPersonByEstate(["95"]), label: "Roraima" },
+                        { y: getPersonByEstate(["96"]), label: "Amapa" },
+                        { y: getPersonByEstate(["97"]), label: "Amazonas" },
+                        { y: getPersonByEstate(["98", "99"]), label: "Maranhão" }
+                    ]
+                }]
+            };
+            $("#chartContainer").CanvasJSChart(options);
+
+        }
+         
+        //Requisicao para o servidor e renderizar na tabela os contatos
+        function renderContacts() {
+            console.log('renderContacts');
+
+            $.ajax({
+                type: "GET",
+                url: "/api/contato",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    contatosDaAgenda = data;
+                    console.log(data);
+                    loadGrahp(data);
+
+                    $("#divContatosCadastrados").html('Contatos Cadastrados: <b>' + data.length + '</br>');
+
+                    $("#divMsgDadosCarregados").show();
+
+                    setTimeout(function () {
+                        $("#divMsgDadosCarregados").fadeOut("slow");
+                    }, 2000);
+                }, //End of AJAX Success function
+
+                failure: function (data) {
+                    console.log('Falha ao recuperar os dados do servidor');
+                    console.log(data.responseText);
+                }, //End of AJAX failure function
+                error: function (data) {
+                    console.log('Erro ao recuperar os dados do servidor');
+                    console.log(data.responseText);
+                } //End of AJAX error function
+            });
+        }
+
+    });
+</script>

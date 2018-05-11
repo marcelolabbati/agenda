@@ -1,0 +1,9 @@
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\bin\Release\netstandard2.0\Agenda.ADO.deps.json
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\bin\Release\netstandard2.0\Agenda.ADO.dll
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\bin\Release\netstandard2.0\Agenda.ADO.pdb
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Release\netstandard2.0\Agenda.ADO.csprojAssemblyReference.cache
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Release\netstandard2.0\Agenda.ADO.csproj.CoreCompileInputs.cache
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Release\netstandard2.0\Agenda.ADO.AssemblyInfoInputs.cache
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Release\netstandard2.0\Agenda.ADO.AssemblyInfo.cs
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Release\netstandard2.0\Agenda.ADO.dll
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Release\netstandard2.0\Agenda.ADO.pdb

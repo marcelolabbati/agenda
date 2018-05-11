@@ -1,0 +1,313 @@
+﻿@model Agenda.ADO.Constantes
+
+@{
+    ViewBag.Title = "Agenda";
+}
+
+<h2>Contatos</h2>
+<form>
+    <input type="hidden" value="" id="hdnId" class="form-control" />
+    <div class="row">
+        <div class="col-md-4 col-xs-4">
+            <div class="form-group">
+                <label for="lblName">*Nome</label>
+                <input type="text" class="form-control foco-default campo-agenda" id="txtName" maxlength="500" />
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-4">
+            <div class="form-group">
+                <label for="lblTelefone">*Fone((00) 00000-0000)</label>
+                <input type="text" class="form-control fone campo-agenda" id="txtFone" maxlength="500" />
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-4">
+            <div class="form-group">
+                <label for="lblEmail">*Email</label>
+                <input type="text" class="form-control email campo-agenda" id="txtEmail" maxlength="200" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<div class="form-group">
+
+</div>
+<div class="form-group">
+    <label for="lblTelefone">*Campos obrigatórios</label>
+</div>
+<div class="alert alert-danger collapse" role="alert" id="divCamposNaoPreenchidos">
+    Todos os campos são obrigatórios e devem ser preenchidos no formato correto!
+</div>
+
+<button type="button" class="btn btn-primary" id="btnAdd" name="btnAdd">Salvar</button>
+<button type="button" class="btn btn-warning" id="btnCancelar" name="btnCancelar">Cancelar Alterações</button>
+<hr />
+
+<div class="alert alert-primary collapse" role="alert" id="divMsgDadosCarregados">
+    Contatos carregados com sucesso!
+</div>
+
+<div class="alert alert-primary collapse" role="alert" id="divNovoContatoSucesso">
+    Contato adicionado com sucesso!
+</div>
+
+<div class="alert alert-primary collapse" role="alert" id="divAlteradoContatoSucesso">
+    Contato alterado com sucesso!
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2>Minha Agenda</h2>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped" id="tblContatos">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Excluir</th>
+                <th>Alterar</th>
+
+            </tr>
+        </table>
+    </div>
+</div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //inicializar o formulário
+        inicializar();
+
+        function inicializar() {
+
+            console.log('call contacts');
+
+            //Requisicao para o servidor
+            renderContacts();
+
+            //Setar o foco inicial do campo. Quando estiver oculto, vai para o proximo campo texto
+            var campoFocoInicial = (function () {
+
+                //verificar se existe um campo com foco default
+                if ($(".foco-default").length) {
+                    $(".foco-default").focus();
+                } else {
+                    $("input:text").focus();
+                }
+            })();
+        }
+
+        //Limpar os campos e estilos
+        function limparCampos() {
+            //limpar valores
+            $("#hdnId").val('');
+            $("#txtName").val('');
+            $("#txtFone").val('');
+            $("#txtEmail").val('');
+
+            //limpar estilos
+            $("#txtFone").css('background-color', "#FFF");
+            $("#txtEmail").css('background-color', "#FFF");
+        }
+
+        //Alterar o label do botao [Salvar / Alterar]
+        function alterarLabelBotao(label) {
+            $("#btnAdd").text(label);
+        }
+
+        //Validar email. Parametro valor do campo
+        function validateEmail(email) {
+
+            var valorCampo = email;
+            er = /^[a-zA-Z0-9][a-zA-Z0-9\._-]+@@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/;
+            return er.exec(valorCampo);
+        }
+
+        //Verificar se o campo possui apenas espacos em branco
+        function validateEspacosBrancos(valor) {
+            return (valor.replace(/\s/g, '').length) == 0;
+        }
+
+        //Requisicao para o servidor e renderizar na tabela os contatos
+        function renderContacts() {
+            console.log('renderContacts');
+
+            $.ajax({
+                type: "GET",
+                url: "/api/contato",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    $.each(data, function (i, item) {
+                        appendData(item.ID, item.Nome, item.Telefone, item.Email)
+                    });
+                    console.log(data);
+                    $("#divMsgDadosCarregados").show();
+
+                    setTimeout(function () {
+                        $("#divMsgDadosCarregados").fadeOut("slow");
+                    }, 2000);
+                }, //End of AJAX Success function
+
+                failure: function (data) {
+                    console.log('Falha ao recuperar os dados do servidor');
+                    console.log(data.responseText);
+                }, //End of AJAX failure function
+                error: function (data) {
+                    console.log('Erro ao recuperar os dados do servidor');
+                    console.log(data.responseText);
+                } //End of AJAX error function
+            });
+        }
+
+        //Adicinar dados na tabela dinamica
+        function appendData(ID, Nome, Telefone, Email) {
+            var rows = "<tr id='contato" + ID + "'>" +
+                "<td id='colunaID" + ID + "'>" + ID + "</td>" +
+                "<td id='colunaNome" + ID + "'>" + Nome + "</td>" +
+                "<td id='colunaTelefone" + ID + "'>" + Telefone + "</td>" +
+                "<td id='colunaEmail" + ID + "'><a href='mailto:" + Email + "?Subject=Contato' target='_top'>" + Email + "</a></td>" +
+                "<td> " +
+                "<button type='button' data-id='" + ID + "'class='btn btn-danger' id='btnApagar'>Excluir</button></td>" +
+                "<td><input type = 'button' class='btn btn-info' id='btnCarregarAlteracao' value='Alterar' data-id='" + ID + "' data-nome='" + Nome + "' data-telefone='" + Telefone + "' data-email='" + Email + "'/></td>"
+            "</tr>";
+            $('#tblContatos').append(rows);
+        }
+
+        //Validacao do campo email quando perder o foco
+        $(".email").on("focusout", function () {
+
+            var input = $(this);
+            var valorCampo = $(this).val();
+
+            if (validateEmail(valorCampo)) {
+                input.css('background-color', "#FFF");
+            } else {
+                input.css('background-color', "#ff0000");
+            }
+        });
+
+        //Mascara para o telefone aceitar somente números
+        $(document).on('keypress', 'input.somente-numero', function (e) {
+            var campo = $(".somente-numero");
+            var key = (window.event) ? event.keyCode : e.which;
+
+            if ((key > 47 && key < 58)) {
+                campo.css('background-color', "#FFF");
+                return true;
+
+            } else {
+                campo.css('background-color', "#ff0000");
+                return (key == 8 || key == 0) ? true : false;
+            }
+        });
+
+        //Limpar os campos
+        $("#btnCancelar").click(function () {
+            limparCampos();
+            alterarLabelBotao('Salvar');
+        });
+
+        //Adicionar novo contato ou atualizar
+        $("#btnAdd").click(function () {
+            var id = $("#hdnId");
+            var nome = $("#txtName");
+            var fone = $("#txtFone");
+            var email = $("#txtEmail");
+
+            $("#divCamposNaoPreenchidos").hide();
+
+            if (validateEspacosBrancos($(nome).val()) || validateEspacosBrancos($(fone).val()) || !validateEmail($(email).val())) {
+                $("#divCamposNaoPreenchidos").show();
+            } else {
+                $("#divCamposNaoPreenchidos").hide();
+
+                console.log('Enviando dados para o servidor');
+                var contact = { Nome: $(nome).val(), Telefone: $(fone).val(), Email: $(email).val(), ID: $(id).val() }
+
+                if ($(id).val() == "") {
+                    $.post("/api/Contato", contact, function (data) {
+                        console.log(data);
+                        if (data.ID) {
+                            appendData('' + data.ID, $(nome).val(), $(fone).val(), $(email).val());
+                            $("#divNovoContatoSucesso").show();
+                            limparCampos();
+                            alterarLabelBotao('Salvar');
+                            setTimeout(function () {
+                                $("#divNovoContatoSucesso").fadeOut("slow");
+                            }, 2000);
+                        }
+                    });
+                } else {
+                    //call UPDATE
+                    $.ajax({
+                        url: '/api/Contato/' + $(id).val(),
+                        type: 'PUT',
+                        data: contact,
+                        success: function (data) {
+                            // Do something with the result
+                            console.log(data);
+
+                            $("#contato" + $(id).val()).remove();
+                            appendData(data.ID, data.Nome, data.Telefone, data.Email);
+
+                            $("#divAlteradoContatoSucesso").show();
+                            limparCampos();
+                            alterarLabelBotao('Salvar');
+                            setTimeout(function () {
+                                $("#divAlteradoContatoSucesso").fadeOut("slow");
+                            }, 2000);
+                        }
+                    });
+                }
+
+            }
+        });
+
+        //Delegar evento para botoes apagar e carregar alteracao
+        $(document).delegate("#btnApagar", "click", function () {
+
+            var id = $(this).attr("data-id");
+
+            //call delete
+            $.ajax({
+                url: '/api/Contato/' + id,
+                type: 'DELETE',
+                success: function (result) {
+                    // Do something with the result
+                    console.log(result);
+                    $("#contato" + id).remove();
+                    limparCampos();
+                    alterarLabelBotao('Salvar');
+                }
+            });
+        });
+
+        $(document).delegate("#btnCarregarAlteracao", "click", function () {
+            console.log('alterar dados...');
+            limparCampos();
+            $("#btnAdd").text('Atualizar');
+
+            var id = $(this).attr("data-id");
+            var nome = $(this).attr("data-nome");
+            var telefone = $(this).attr("data-telefone");
+            var email = $(this).attr("data-email");
+
+            console.log('id=' + id + ' nome=' + nome + ' telefone=' + telefone + ' email=' + email)
+
+            $("#hdnId").val(id);
+            $("#txtName").val(nome);
+            $("#txtFone").val(telefone);
+            $("#txtEmail").val(email);
+            alterarLabelBotao('Alterar');
+
+        });
+        //Aplicar a mascara de telefone
+        $('.fone').mask('(00) 00000-0000');
+    });
+</script>

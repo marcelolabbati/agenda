@@ -1,0 +1,6 @@
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\bin\Debug\netstandard2.0\Agenda.Utils.deps.json
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\bin\Debug\netstandard2.0\Agenda.Utils.dll
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.Utils.csprojAssemblyReference.cache
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.Utils.csproj.CoreCompileInputs.cache
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.Utils.AssemblyInfoInputs.cache
+C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.Utils.AssemblyInfo.cs
