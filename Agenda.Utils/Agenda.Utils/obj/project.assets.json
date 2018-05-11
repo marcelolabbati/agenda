@@ -2116,11 +2116,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projetos\\Agenda\\Agenda.Utils\\Agenda.Utils\\Agenda.ADO.csproj",
+      "projectUniqueName": "C:\\Users\\labba\\Source\\Repos\\agenda\\Agenda.Utils\\Agenda.Utils\\Agenda.ADO.csproj",
       "projectName": "Agenda.ADO",
-      "projectPath": "C:\\Projetos\\Agenda\\Agenda.Utils\\Agenda.Utils\\Agenda.ADO.csproj",
+      "projectPath": "C:\\Users\\labba\\Source\\Repos\\agenda\\Agenda.Utils\\Agenda.Utils\\Agenda.ADO.csproj",
       "packagesPath": "C:\\Users\\labba\\.nuget\\packages\\",
-      "outputPath": "C:\\Projetos\\Agenda\\Agenda.Utils\\Agenda.Utils\\obj\\",
+      "outputPath": "C:\\Users\\labba\\Source\\Repos\\agenda\\Agenda.Utils\\Agenda.Utils\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

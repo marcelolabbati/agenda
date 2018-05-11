@@ -7,3 +7,12 @@ C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.ADO
 C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.ADO.AssemblyInfo.cs
 C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.ADO.dll
 C:\Projetos\Agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.ADO.pdb
+C:\Users\labba\Source\Repos\agenda\Agenda.Utils\Agenda.Utils\bin\Debug\netstandard2.0\Agenda.ADO.deps.json
+C:\Users\labba\Source\Repos\agenda\Agenda.Utils\Agenda.Utils\bin\Debug\netstandard2.0\Agenda.ADO.dll
+C:\Users\labba\Source\Repos\agenda\Agenda.Utils\Agenda.Utils\bin\Debug\netstandard2.0\Agenda.ADO.pdb
+C:\Users\labba\Source\Repos\agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.ADO.csprojAssemblyReference.cache
+C:\Users\labba\Source\Repos\agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.ADO.csproj.CoreCompileInputs.cache
+C:\Users\labba\Source\Repos\agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.ADO.AssemblyInfoInputs.cache
+C:\Users\labba\Source\Repos\agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.ADO.AssemblyInfo.cs
+C:\Users\labba\Source\Repos\agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.ADO.dll
+C:\Users\labba\Source\Repos\agenda\Agenda.Utils\Agenda.Utils\obj\Debug\netstandard2.0\Agenda.ADO.pdb
